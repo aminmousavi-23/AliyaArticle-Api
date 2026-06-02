@@ -1,4 +1,4 @@
-﻿namespace Application.Common.Responses;
+﻿namespace Application.Models.Responses;
 
 public class ValidationErrorResponse
 {

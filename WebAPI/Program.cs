@@ -1,21 +1,19 @@
-using Scalar.AspNetCore;
+using Application;
+using Infrastructure;
+using WebAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
+builder.Services
+    .AddApplicationServices(builder.Configuration)
+    .AddInfrastructureServices(builder.Configuration)
+    .AddApiServices(builder.Configuration);
+
+builder.Configuration
+    .AddConfiguration(builder.Environment);
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.MapScalarApiReference(options =>
-    {
-        options.WithTitle("AliyaNews API");
-        options.WithTheme(ScalarTheme.BluePlanet);
-    });
-}
-
-app.UseHttpsRedirection();
+app.AddMiddlewares();
 
 app.Run();

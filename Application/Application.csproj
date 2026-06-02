@@ -8,11 +8,19 @@
 
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="16.1.1" />
+      <PackageReference Include="FluentValidation" Version="12.1.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.10" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.16" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\" />
-      <Folder Include="Profiles\" />
+      <Folder Include="Features\User\Command\" />
+      <Folder Include="Features\User\Queries\" />
+      <Folder Include="Models\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
 </Project>
