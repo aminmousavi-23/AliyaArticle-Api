@@ -21,6 +21,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserContextAccessor, UserContextAccessor>();
+        services.AddScoped<IUserRepository, UserRepository>();
         
         return services;
     }

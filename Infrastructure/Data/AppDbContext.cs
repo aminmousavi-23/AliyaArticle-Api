@@ -7,11 +7,10 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.Data;
 
-public class AppDbContext(
-    DbContextOptions<AppDbContext> options)
-    : DbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+    public DbSet<AuditLog> AuditLogs { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -48,6 +47,7 @@ public class AppDbContext(
 
                 case EntityState.Deleted:
                     entry.State = EntityState.Modified;
+                    entry.Entity.IsActive = false;
                     entry.Entity.IsDeleted = true;
                     entry.Entity.LastModifiedDate = now;
                     //entry.Entity.LastModifiedBy = user.Username;
