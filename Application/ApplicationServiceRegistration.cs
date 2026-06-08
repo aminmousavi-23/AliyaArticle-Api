@@ -16,7 +16,7 @@ public static class ApplicationServiceRegistration
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddScoped<IRequestValidator, RequestValidator>();
         
-        ValidatorOptions.Global.PropertyNameResolver = (type, memberInfo, expression) =>
+        ValidatorOptions.Global.PropertyNameResolver = (_, memberInfo, _) =>
         {
             if (memberInfo == null) return null;
 
