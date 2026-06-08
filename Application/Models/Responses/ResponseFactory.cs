@@ -61,14 +61,14 @@ public static class ResponseFactory
     public static BaseResponse<T> NotFound<T>(string message) =>
         new()
         {
-            StatusCode = StatusCodes.Status204NoContent,
+            StatusCode = StatusCodes.Status203NonAuthoritative,
             Message = message
         };
     
     public static CollectionResponse<T> CollectionNotFound<T>(string message) =>
         new()
         {
-            StatusCode = StatusCodes.Status204NoContent,
+            StatusCode = StatusCodes.Status203NonAuthoritative,
             Message = message
         };
 

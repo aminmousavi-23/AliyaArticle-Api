@@ -11,8 +11,9 @@ public static class ApplicationServiceRegistration
     public static IServiceCollection AddApplicationServices(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
-        services.AddMediatR(c => c.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddAutoMapper(_ => { }, Assembly.GetExecutingAssembly());
+        services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddScoped<IRequestValidator, RequestValidator>();
         
         ValidatorOptions.Global.PropertyNameResolver = (type, memberInfo, expression) =>

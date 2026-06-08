@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
-[Route("api/auth")]
+[Route("api/user")]
 [ApiController]
-public class AuthController(IMediator mediator) : ControllerBase
+public class UserController(IMediator mediator) : ControllerBase
 {
     [HttpPost("search")]
     public async Task<IActionResult> GetPaginated([FromBody] GetUserPaginatedQuery request,
@@ -30,7 +30,7 @@ public class AuthController(IMediator mediator) : ControllerBase
         return StatusCode(result.StatusCode, result);
     }
 
-    [HttpPost]
+    [HttpPost("register")]
     public async Task<IActionResult> Post([FromBody] RegisterUserCommand request,
         CancellationToken cancellationToken)
     {

@@ -22,7 +22,9 @@ public class RegisterUserCommandHandler(
         var exists = 
             await userRepository.IsExistsAsync(request.PhoneNumber, request.Email, cancellationToken);
         if (exists)
+        {
             return ResponseFactory.Conflict<RegisterUserCommandResponse>(Messages.User.AlreadyRegistered);
+        }
         
         var newUser = mapper.Map<Domain.Entities.User>(request);
         newUser.HashedPassword = PasswordHelper.HashPassword(request.Password);
