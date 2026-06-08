@@ -1,0 +1,12 @@
+﻿using Application.Models.ViewModels;
+
+namespace Application.Features.User.Queries.GetPaginated;
+
+public class GetUserPaginatedQueryResponse : AuditableViewModel
+{
+    public string FullName { get; set; } = default!;
+    public string PhoneNumber { get; set; } = default!;
+    public string? Email { get; set; }
+    
+    public bool IsAdmin { get; set; }
+}

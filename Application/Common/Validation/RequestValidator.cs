@@ -8,7 +8,7 @@ public class RequestValidator(IServiceProvider serviceProvider) : IRequestValida
     public async Task ValidateAsync<T>(T request)
     {
         var validator = serviceProvider.GetService(typeof(IValidator<T>)) as IValidator<T>;
-        if (validator is null)
+        if (validator == null)
             return;
 
         var validationResult = await validator.ValidateAsync(request);

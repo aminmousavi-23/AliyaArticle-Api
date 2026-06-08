@@ -8,9 +8,9 @@ public static class QueryFilterBuilder
     public static IQueryable<TEntity> ApplyFiltering<TEntity>(
         IQueryable<TEntity> query,
         FilterDto? filter,
-        Dictionary<string, Expression<Func<TEntity, object>>> mapping)
+        Dictionary<string, Expression<Func<TEntity, object>>>? mapping)
     {
-        if (filter == null) 
+        if (filter == null ||  mapping == null) 
             return query;
 
         var parameter = Expression.Parameter(typeof(TEntity), "x");
@@ -22,6 +22,8 @@ public static class QueryFilterBuilder
         var lambda = Expression.Lambda<Func<TEntity, bool>>(body, parameter);
         return query.Where(lambda);
     }
+
+    #region Private Methods
 
     private static Expression? BuildGroupExpression<TEntity>(
         FilterDto group,
@@ -119,4 +121,6 @@ public static class QueryFilterBuilder
         protected override Expression VisitParameter(ParameterExpression node)
             => node == source ? target : base.VisitParameter(node);
     }
+
+    #endregion
 }

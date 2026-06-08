@@ -12,7 +12,7 @@ public class BaseResponse<T> : BaseResponse
     public new T? Data { get; set; }
 }
 
-public class CollectionResponse<T> : BaseResponse<List<T>>
+public class CollectionResponse<T> : BaseResponse<IEnumerable<T>>
 {
     public long TotalCount { get; set; }
 }

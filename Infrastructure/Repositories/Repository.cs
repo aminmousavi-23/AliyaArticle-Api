@@ -21,12 +21,12 @@ public class Repository<T>(DbContext context) : IRepository<T>
     {
         return await context.Set<T>()
             .AsNoTracking()
-            .OrderByDescending(x => x.CreatedDate)
+            .OrderByDescending(x => x.CreatedAt)
             .ToListAsync(cancellationToken);
     }
 
-    public virtual async Task<(IList<T> Items, long TotalCount)> GetPaginatedAsync(QueryOptionsDto request,
-        Dictionary<string, Expression<Func<T, object>>> mapping, CancellationToken cancellationToken)
+    public virtual async Task<(IEnumerable<T> Items, long TotalCount)> GetPaginatedAsync(QueryOptions request,
+        Dictionary<string, Expression<Func<T, object>>>? mapping, CancellationToken cancellationToken)
     {
         var query = context.Set<T>()
             .AsNoTracking()
@@ -44,8 +44,7 @@ public class Repository<T>(DbContext context) : IRepository<T>
 
         return (items, totalCount);
     }
-
-
+    
     public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken)
     {
         await context.Set<T>()

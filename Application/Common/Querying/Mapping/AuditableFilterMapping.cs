@@ -11,8 +11,8 @@ public static class AuditableFilterMapping<TEntity>
         {
             ["id"] = x => x.Id,
             ["createdBy"] = x => x.CreatedBy,
-            ["createdDate"] = x => x.CreatedDate,
+            ["createdAt"] = x => x.CreatedAt,
             ["lastModifiedBy"] = x => x.LastModifiedBy!,
-            ["lastModifiedDate"] = x => x.LastModifiedDate!
+            ["lastModifiedAt"] = x => x.LastModifiedAt!
         };
 }

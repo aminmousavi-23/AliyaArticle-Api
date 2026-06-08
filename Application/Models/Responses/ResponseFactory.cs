@@ -19,7 +19,7 @@ public static class ResponseFactory
             Data = data
         };
 
-    public static CollectionResponse<T> Ok<T>(List<T> data, long totalCount, string? message = null) =>
+    public static CollectionResponse<T> Ok<T>(IEnumerable<T> data, long totalCount, string? message = null) =>
         new()
         {
             StatusCode = StatusCodes.Status200OK,
@@ -43,7 +43,7 @@ public static class ResponseFactory
             Data = data
         };
 
-    public static BaseResponse BadRequest(string message) =>
+    public static BaseResponse<T> BadRequest<T>(string message) =>
         new()
         {
             StatusCode = StatusCodes.Status400BadRequest,
@@ -58,7 +58,14 @@ public static class ResponseFactory
             ValidationErrors = errors
         };
 
-    public static BaseResponse NotFound(string message) =>
+    public static BaseResponse<T> NotFound<T>(string message) =>
+        new()
+        {
+            StatusCode = StatusCodes.Status204NoContent,
+            Message = message
+        };
+    
+    public static CollectionResponse<T> CollectionNotFound<T>(string message) =>
         new()
         {
             StatusCode = StatusCodes.Status204NoContent,
@@ -80,6 +87,13 @@ public static class ResponseFactory
         };
 
     public static BaseResponse Conflict(string message) =>
+        new()
+        {
+            StatusCode = StatusCodes.Status409Conflict,
+            Message = message
+        };
+    
+    public static BaseResponse<T> Conflict<T>(string message) =>
         new()
         {
             StatusCode = StatusCodes.Status409Conflict,

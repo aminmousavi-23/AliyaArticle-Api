@@ -9,13 +9,14 @@
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="16.1.1" />
       <PackageReference Include="FluentValidation" Version="12.1.1" />
+      <PackageReference Include="MediatR" Version="14.1.0" />
       <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.10" />
       <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.16" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\User\Command\" />
-      <Folder Include="Features\User\Queries\" />
+      <Folder Include="Features\User\Command\Login\" />
+      <Folder Include="Features\User\Command\Update\" />
       <Folder Include="Models\" />
     </ItemGroup>
 

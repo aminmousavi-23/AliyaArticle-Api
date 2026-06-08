@@ -20,7 +20,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public override async Task<int> SaveChangesAsync(
         CancellationToken cancellationToken = default)
     {
-        var userContext = this.GetService<IUserContextAccessor>();
+        //var userContext = this.GetService<IUserContextAccessor>();
         //var user = await userContext.GetUserByTokenAsync(); TODO:user-context-accessor
 
         var now = DateTime.UtcNow;
@@ -34,13 +34,15 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             switch (entry.State)
             {
                 case EntityState.Added:
-                    entry.Entity.CreatedDate = now;
+                    entry.Entity.CreatedAt = now;
+                    entry.Entity.CreatedBy = "0";
                     //entry.Entity.CreatedBy = user.Username;
 
                     break;
 
                 case EntityState.Modified:
-                    entry.Entity.LastModifiedDate = now;
+                    entry.Entity.LastModifiedAt = now;
+                    entry.Entity.LastModifiedBy = "0";
                     //entry.Entity.LastModifiedBy = user.Username;
 
                     break;
@@ -49,7 +51,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                     entry.State = EntityState.Modified;
                     entry.Entity.IsActive = false;
                     entry.Entity.IsDeleted = true;
-                    entry.Entity.LastModifiedDate = now;
+                    entry.Entity.LastModifiedAt = now;
+                    entry.Entity.LastModifiedBy = "0";
                     //entry.Entity.LastModifiedBy = user.Username;
 
                     break;
@@ -74,7 +77,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                     entry.Properties.ToDictionary(
                         p => p.Metadata.Name,
                         p => p.CurrentValue)),
-                CreatedDate = now,
+                CreatedAt = now,
+                CreatedBy = "0"
                 //CreatedBy = user.Username
             });
         }

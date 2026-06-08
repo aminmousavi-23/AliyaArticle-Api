@@ -8,8 +8,8 @@ public interface IRepository<T> where T : AuditableEntity
 {
     Task<T?> GetByIdAsync<TKey>(TKey id, CancellationToken cancellationToken);
     Task<IList<T>> GetAllAsync(CancellationToken cancellationToken);
-    Task<(IList<T> Items, long TotalCount)> GetPaginatedAsync(QueryOptionsDto request, 
-        Dictionary<string, Expression<Func<T, object>>> mapping, CancellationToken cancellationToken);
+    Task<(IEnumerable<T> Items, long TotalCount)> GetPaginatedAsync(QueryOptions request, 
+        Dictionary<string, Expression<Func<T, object>>>? mapping, CancellationToken cancellationToken);
 
     Task<T> AddAsync(T entity, CancellationToken cancellationToken);
     Task<IList<T>> AddRangeAsync(IList<T> entities, CancellationToken cancellationToken);

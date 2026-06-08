@@ -1,4 +1,6 @@
-﻿using Scalar.AspNetCore;
+﻿using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 using WebAPI.Middlewares;
 
 namespace WebAPI;
@@ -55,5 +57,24 @@ public static class StartupHelperExtensions
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+    }
+    
+    public static async Task ResetDatabaseAsync(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+        try
+        {
+            var context = scope.ServiceProvider.GetService<AppDbContext>();
+            if (context != null)
+            {
+                await context.Database.EnsureDeletedAsync();
+                await context.Database.MigrateAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
+            logger.LogError(ex, "An error occurred while migrating the database.");
+        }
     }
 }
