@@ -42,6 +42,13 @@ public static class ResponseFactory
             Message = message,
             Data = data
         };
+    
+    public static BaseResponse BadRequest(string message) =>
+        new()
+        {
+            StatusCode = StatusCodes.Status400BadRequest,
+            Message = message
+        };
 
     public static BaseResponse<T> BadRequest<T>(string message) =>
         new()
@@ -56,6 +63,13 @@ public static class ResponseFactory
             StatusCode = StatusCodes.Status400BadRequest,
             Message = message,
             ValidationErrors = errors
+        };
+    
+    public static BaseResponse NotFound(string message) =>
+        new()
+        {
+            StatusCode = StatusCodes.Status203NonAuthoritative,
+            Message = message
         };
 
     public static BaseResponse<T> NotFound<T>(string message) =>
