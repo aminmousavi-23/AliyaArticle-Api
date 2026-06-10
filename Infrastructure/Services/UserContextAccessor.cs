@@ -1,7 +1,6 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using Application.Abstractions.Infrastructure;
+﻿using Application.Abstractions.Infrastructure;
 using Application.Common.Resources;
-using Application.Features.User.Queries.GetById;
+using Application.Models.DTOs;
 using Infrastructure.Common.Constants;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -15,12 +14,12 @@ public class UserContextAccessor(
     private const string SystemUsername = "0";
     private const string SystemFullName = "سیستم";
 
-    public GetUserByIdQueryResponse GetUserByTokenAsync()
+    public GetUserFromTokenDto GetUserByTokenAsync()
     {
         var user = httpContextAccessor.HttpContext?.User;
 
         if (user?.Identity?.IsAuthenticated != true)
-            return new GetUserByIdQueryResponse()
+            return new GetUserFromTokenDto()
             {
                 Username = SystemUsername,
                 FullName = SystemFullName
@@ -38,7 +37,7 @@ public class UserContextAccessor(
         var isActive = bool.Parse(user.FindFirst(CustomClaimTypes.IsActive)?.Value
                                   ?? throw new AuthenticationFailureException(Messages.Auth.InvalidToken));
 
-        return new GetUserByIdQueryResponse()
+        return new GetUserFromTokenDto()
         {
             Username = username,
             FullName = fullName,
