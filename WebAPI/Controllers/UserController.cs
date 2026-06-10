@@ -1,5 +1,4 @@
-﻿using Application.Features.User.Command.Register;
-using Application.Features.User.Queries.GetById;
+﻿using Application.Features.User.Queries.GetById;
 using Application.Features.User.Queries.GetPaginated;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,14 +25,6 @@ public class UserController(IMediator mediator) : ControllerBase
             Id = id
         };
         
-        var result = await mediator.Send(request, cancellationToken);
-        return StatusCode(result.StatusCode, result);
-    }
-
-    [HttpPost("register")]
-    public async Task<IActionResult> Post([FromBody] RegisterUserCommand request,
-        CancellationToken cancellationToken)
-    {
         var result = await mediator.Send(request, cancellationToken);
         return StatusCode(result.StatusCode, result);
     }

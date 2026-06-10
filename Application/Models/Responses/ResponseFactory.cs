@@ -42,7 +42,7 @@ public static class ResponseFactory
             Message = message,
             Data = data
         };
-    
+
     public static BaseResponse BadRequest(string message) =>
         new()
         {
@@ -64,7 +64,7 @@ public static class ResponseFactory
             Message = message,
             ValidationErrors = errors
         };
-    
+
     public static BaseResponse NotFound(string message) =>
         new()
         {
@@ -78,7 +78,7 @@ public static class ResponseFactory
             StatusCode = StatusCodes.Status203NonAuthoritative,
             Message = message
         };
-    
+
     public static CollectionResponse<T> CollectionNotFound<T>(string message) =>
         new()
         {
@@ -87,6 +87,13 @@ public static class ResponseFactory
         };
 
     public static BaseResponse Unauthorized(string? message = null) =>
+        new()
+        {
+            StatusCode = StatusCodes.Status401Unauthorized,
+            Message = message
+        };
+
+    public static BaseResponse<T> Unauthorized<T>(string? message = null) =>
         new()
         {
             StatusCode = StatusCodes.Status401Unauthorized,
@@ -106,7 +113,7 @@ public static class ResponseFactory
             StatusCode = StatusCodes.Status409Conflict,
             Message = message
         };
-    
+
     public static BaseResponse<T> Conflict<T>(string message) =>
         new()
         {
@@ -114,10 +121,11 @@ public static class ResponseFactory
             Message = message
         };
 
-    public static BaseResponse InternalServerError(string? message = null) =>
+    public static BaseResponse Exception(string? message = null,
+        int statusCode = StatusCodes.Status500InternalServerError) =>
         new()
         {
-            StatusCode = StatusCodes.Status500InternalServerError,
+            StatusCode = statusCode,
             Message = message
         };
 }

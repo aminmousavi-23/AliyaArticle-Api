@@ -16,9 +16,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\User\Command\Login\" />
-      <Folder Include="Features\User\Command\Update\" />
-      <Folder Include="Models\" />
+      <Folder Include="Features\Auth\Command\" />
+      <Folder Include="Features\Auth\Queries\" />
+      <Folder Include="Features\User\Command\" />
     </ItemGroup>
 
     <ItemGroup>

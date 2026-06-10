@@ -6,7 +6,7 @@ using Application.Models.Responses;
 using AutoMapper;
 using MediatR;
 
-namespace Application.Features.User.Command.Register;
+namespace Application.Features.Auth.Command.Register;
 
 public class RegisterUserCommandHandler(
     IMapper mapper,
@@ -20,7 +20,7 @@ public class RegisterUserCommandHandler(
         await requestValidator.ValidateAsync(request);
         
         var exists = 
-            await userRepository.IsExistsAsync(request.PhoneNumber, request.Email, cancellationToken);
+            await userRepository.IsExistsAsync(request, cancellationToken);
         if (exists)
         {
             return ResponseFactory.Conflict<RegisterUserCommandResponse>(Messages.User.AlreadyRegistered);

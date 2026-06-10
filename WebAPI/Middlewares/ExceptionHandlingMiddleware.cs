@@ -25,11 +25,19 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Exception
 
             await WriteJsonResponseAsync(context, response);
         }
+        catch (AppException ex)
+        {
+            logger.LogError(ex, ex.Message);
+            
+            var response = ResponseFactory.Exception(ex.Message, ex.StatusCode);
+
+            await WriteJsonResponseAsync(context, response);
+        }
         catch (Exception ex)
         {
             logger.LogError(ex, Messages.Common.InternalServerError);
 
-            var response = ResponseFactory.InternalServerError(ex.Message);
+            var response = ResponseFactory.Exception(ex.Message);
 
             await WriteJsonResponseAsync(context, response);
         }

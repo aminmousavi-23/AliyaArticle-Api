@@ -1,11 +1,15 @@
+using System.Text;
 using Application.Abstractions.Infrastructure;
 using Application.Abstractions.Persistence;
+using Infrastructure.Common.Options;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure;
 
@@ -18,11 +22,50 @@ public static class InfrastructureServiceRegistration
         {
             options.UseSqlite(configuration.GetConnectionString("SqliteConnectionString"));
         });
+        services.AddJwtAuthentication(configuration);
+        services.AddSingleton<IJwtTokenService, JwtTokenService>();
+        
+        services.AddHttpContextAccessor();
+        services.AddScoped<IUserContextAccessor, UserContextAccessor>();
+        
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<IUserContextAccessor, UserContextAccessor>();
         services.AddScoped<IUserRepository, UserRepository>();
         
+        return services;
+    }
+    
+    private static IServiceCollection AddJwtAuthentication(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        var jwtConfigOptions = configuration.GetSection("JwtConfigOptions").Get<JwtConfigOptions>();
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtConfigOptions!.Issuer,
+                    ValidAudience = jwtConfigOptions.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfigOptions.Key))
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine("Authentication failed: " + context.Exception.Message);
+                        Console.WriteLine("Token: " + context.Request.Headers.Authorization);
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+        services.Configure<JwtConfigOptions>(configuration.GetSection("JwtConfigOptions"));
+        
+        services.AddAuthorization();
+
         return services;
     }
 }

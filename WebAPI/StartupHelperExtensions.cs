@@ -10,7 +10,7 @@ public static class StartupHelperExtensions
     public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration configuration)
     {
         var uiDomains = configuration.GetSection("UIDomains").Get<string[]>();
-        
+
         services.AddOpenApi();
         services.AddControllers();
         services.AddEndpointsApiExplorer();
@@ -27,7 +27,7 @@ public static class StartupHelperExtensions
 
         return services;
     }
-    
+
     public static WebApplication AddMiddlewares(this WebApplication app)
     {
         if (app.Environment.IsDevelopment())
@@ -50,7 +50,7 @@ public static class StartupHelperExtensions
         app.MapHealthChecks("/health");
         return app;
     }
-    
+
     public static void AddConfiguration(this IConfigurationBuilder configurationBuilder, IHostEnvironment environment)
     {
         configurationBuilder
@@ -58,23 +58,16 @@ public static class StartupHelperExtensions
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
     }
-    
+
     public static async Task ResetDatabaseAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
-        try
+        
+        var context = scope.ServiceProvider.GetService<AppDbContext>();
+        if (context != null)
         {
-            var context = scope.ServiceProvider.GetService<AppDbContext>();
-            if (context != null)
-            {
-                await context.Database.EnsureDeletedAsync();
-                await context.Database.MigrateAsync();
-            }
-        }
-        catch (Exception ex)
-        {
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
-            logger.LogError(ex, "An error occurred while migrating the database.");
+            await context.Database.EnsureDeletedAsync();
+            await context.Database.MigrateAsync();
         }
     }
 }

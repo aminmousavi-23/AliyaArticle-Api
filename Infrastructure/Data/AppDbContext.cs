@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions.Infrastructure;
 using Domain.Common;
 using Domain.Entities;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Newtonsoft.Json;
@@ -20,70 +21,73 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public override async Task<int> SaveChangesAsync(
         CancellationToken cancellationToken = default)
     {
-        //var userContext = this.GetService<IUserContextAccessor>();
-        //var user = await userContext.GetUserByTokenAsync(); TODO:user-context-accessor
+        var username = this.GetService<IUserContextAccessor>()
+            .GetUserByTokenAsync()
+            .Username;
 
         var now = DateTime.UtcNow;
         var auditLogs = new List<AuditLog>();
 
-        foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
-        {
-            if (entry.Entity is AuditLog)
-                continue;
+        var entries = ChangeTracker
+            .Entries<AuditableEntity>()
+            .Where(x => x.Entity is not AuditLog)
+            .ToList();
 
-            switch (entry.State)
+        foreach (var entry in entries)
+        {
+            var originalState = entry.State;
+
+            switch (originalState)
             {
                 case EntityState.Added:
                     entry.Entity.CreatedAt = now;
-                    entry.Entity.CreatedBy = "0";
-                    //entry.Entity.CreatedBy = user.Username;
-
+                    entry.Entity.CreatedBy = username;
                     break;
 
                 case EntityState.Modified:
                     entry.Entity.LastModifiedAt = now;
-                    entry.Entity.LastModifiedBy = "0";
-                    //entry.Entity.LastModifiedBy = user.Username;
-
+                    entry.Entity.LastModifiedBy = username;
                     break;
 
                 case EntityState.Deleted:
                     entry.State = EntityState.Modified;
-                    entry.Entity.IsActive = false;
                     entry.Entity.IsDeleted = true;
+                    entry.Entity.IsActive = false;
                     entry.Entity.LastModifiedAt = now;
-                    entry.Entity.LastModifiedBy = "0";
-                    //entry.Entity.LastModifiedBy = user.Username;
-
+                    entry.Entity.LastModifiedBy = username;
                     break;
             }
 
-            if (entry.State is not (EntityState.Added or EntityState.Modified))
+            if (originalState is not (
+                EntityState.Added or
+                EntityState.Modified or
+                EntityState.Deleted))
+            {
                 continue;
+            }
 
-            var primaryKey = entry.Properties
+            var recordId = entry.Properties
                 .FirstOrDefault(x => x.Metadata.IsPrimaryKey())
-                ?.CurrentValue;
+                ?.CurrentValue as Guid?;
 
-            if (primaryKey is not Guid recordId)
+            if (recordId.HasValue == false)
                 continue;
 
             auditLogs.Add(new AuditLog
             {
-                TableName = entry.Entity.GetType().Name,
-                EntityState = entry.State,
-                RecordId = recordId,
+                TableName = entry.Metadata.ClrType.Name,
+                EntityState = originalState,
+                RecordId = recordId.Value,
                 NewValues = JsonConvert.SerializeObject(
                     entry.Properties.ToDictionary(
                         p => p.Metadata.Name,
                         p => p.CurrentValue)),
                 CreatedAt = now,
-                CreatedBy = "0"
-                //CreatedBy = user.Username
+                CreatedBy = username
             });
         }
 
-        if (auditLogs.Any())
+        if (auditLogs.Count > 0)
             AuditLogs.AddRange(auditLogs);
 
         return await base.SaveChangesAsync(cancellationToken);
