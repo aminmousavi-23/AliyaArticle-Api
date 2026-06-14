@@ -27,10 +27,18 @@ public static class InfrastructureServiceRegistration
         
         services.AddHttpContextAccessor();
         services.AddScoped<IUserContextAccessor, UserContextAccessor>();
-        
+
+        #region Repositories
+
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IArticleRepository, ArticleRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<ITagRepository, TagRepository>();
+
+        #endregion
         
         return services;
     }

@@ -31,11 +31,6 @@ public class ArticleConfiguration : IEntityTypeConfiguration<Article>
         builder.HasIndex(x => x.Slug)
             .IsUnique();
 
-        builder.HasOne(x => x.Author)
-            .WithMany()
-            .HasForeignKey(x => x.AuthorId)
-            .OnDelete(DeleteBehavior.Restrict);
-
         builder.HasOne(x => x.Category)
             .WithMany(x => x.Articles)
             .HasForeignKey(x => x.CategoryId)

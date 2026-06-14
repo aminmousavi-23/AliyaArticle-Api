@@ -11,9 +11,6 @@ public class Article : AuditableEntity
     //TODO:Images
     public bool IsPublished { get; set; }
 
-    public Guid AuthorId { get; set; }
-    public User Author { get; set; } = default!;
-
     public Guid CategoryId { get; set; }
     public Category Category { get; set; } = default!;
 

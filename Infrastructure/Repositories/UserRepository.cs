@@ -8,7 +8,7 @@ namespace Infrastructure.Repositories;
 
 public class UserRepository(AppDbContext context) : Repository<User>(context), IUserRepository
 {
-    public async Task<bool> IsExistsAsync(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<bool> ExistsAsync(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         return await context.Users
             .AnyAsync(x =>

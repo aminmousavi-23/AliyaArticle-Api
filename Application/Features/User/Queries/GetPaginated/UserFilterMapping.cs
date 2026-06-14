@@ -1,13 +1,13 @@
 ﻿using System.Linq.Expressions;
-using Domain.Entities;
+using Application.Common.Querying.Mapping;
 
-namespace Application.Common.Querying.Mapping;
+namespace Application.Features.User.Queries.GetPaginated;
 
 public static class UserFilterMapping
 {
-    public static Dictionary<string, Expression<Func<User, object>>> Get()
+    public static Dictionary<string, Expression<Func<Domain.Entities.User, object>>> Get()
     {
-        var baseMap = AuditableFilterMapping<User>.Get();
+        var baseMap = AuditableFilterMapping<Domain.Entities.User>.Get();
         
         baseMap["fullName"] = x => x.FullName;
         baseMap["phoneNumber"] = x => x.PhoneNumber;

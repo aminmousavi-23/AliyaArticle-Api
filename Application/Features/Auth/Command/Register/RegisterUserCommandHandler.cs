@@ -20,7 +20,7 @@ public class RegisterUserCommandHandler(
         await requestValidator.ValidateAsync(request);
         
         var exists = 
-            await userRepository.IsExistsAsync(request, cancellationToken);
+            await userRepository.ExistsAsync(request, cancellationToken);
         if (exists)
         {
             return ResponseFactory.Conflict<RegisterUserCommandResponse>(Messages.User.AlreadyRegistered);

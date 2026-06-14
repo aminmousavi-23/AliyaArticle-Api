@@ -10,6 +10,13 @@ public static class ResponseFactory
             StatusCode = StatusCodes.Status200OK,
             Message = message
         };
+    
+    public static BaseResponse<T> Ok<T>(string? message = null) =>
+        new()
+        {
+            StatusCode = StatusCodes.Status200OK,
+            Message = message
+        };
 
     public static BaseResponse<T> Ok<T>(T data, string? message = null) =>
         new()
