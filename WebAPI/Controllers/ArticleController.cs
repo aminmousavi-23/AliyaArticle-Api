@@ -42,10 +42,10 @@ public class ArticleController(IMediator mediator) : ControllerBase
     }
     
     [Authorize(Roles = "Admin")]
-    [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken)
+    [HttpDelete("{id:guid}/publish")]
+    public async Task<IActionResult> Put([FromRoute] Guid id, CancellationToken cancellationToken)
     {
-        var request = new DeleteArticleCommand()
+        var request = new PublishArticleCommand()
         {
             Id = id
         };
@@ -55,10 +55,10 @@ public class ArticleController(IMediator mediator) : ControllerBase
     }
     
     [Authorize(Roles = "Admin")]
-    [HttpDelete("{id:guid}/publish")]
-    public async Task<IActionResult> Put([FromRoute] Guid id, CancellationToken cancellationToken)
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken)
     {
-        var request = new PublishArticleCommand()
+        var request = new DeleteArticleCommand()
         {
             Id = id
         };
