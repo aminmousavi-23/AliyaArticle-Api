@@ -14,9 +14,9 @@ public class CategoryRepository(AppDbContext context) : Repository<Category>(con
             .AnyAsync(a => a.Slug == slug, cancellationToken);
     }
     
-    public async Task<bool> HasArticlesAsync(Guid categoryId, CancellationToken cancellationToken)
+    public async Task<bool> HasArticlesAsync(Guid id, CancellationToken cancellationToken)
     {
         return await context.Articles
-            .AnyAsync(a => a.CategoryId == categoryId, cancellationToken);
+            .AnyAsync(a => a.CategoryId == id, cancellationToken);
     }
 }

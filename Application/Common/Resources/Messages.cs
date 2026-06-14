@@ -42,4 +42,16 @@ public static class Messages
         public const string Deleted = "دسته بندی مورد نظر با موفقیت حذف شد.";
         public const string CanNotDelete = "امکان حذف دسته بندی مورد نظر وجود ندارد.";
     }
+    public static class Tag
+    {
+        public static class Validation
+        {
+            public const string NameRequired = "نام برچسب الزامی است.";
+        }
+
+        public const string NotFound = "برچسبی در سیستم یافت نشد.";
+        public const string Created = "برچسب مورد نظر با موفقیت ایجاد شد.";
+        public const string Deleted = "برچسب مورد نظر با موفقیت حذف شد.";
+        public const string CanNotDelete = "امکان حذف برچسب مورد نظر وجود ندارد.";
+    }
 }
