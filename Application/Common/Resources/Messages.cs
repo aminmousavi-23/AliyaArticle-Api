@@ -21,8 +21,7 @@ public static class Messages
 
         public const string NotFound = "شخصی در سیستم یافت نشد.";
         public const string AlreadyRegistered = "در حال حاضر شخصی با این مشخصات در سیستم وجود دارد.";
-        public const string InvalidPhoneNumberOrPassword =
-            "شماره موبایل یا رمز عبور نامعتبر می باشد.";
+        public const string InvalidUsernameOrPassword = "نام کاربری یا رمز عبور نامعتبر می باشد.";
         public const string IsNotActive = "کاربری شما در حال حاضر غیر فعال می باشد.\n" +
                                           "لطفا با پشتیبانی ارتباط برقرار کنید.";
     }
@@ -37,7 +36,7 @@ public static class Messages
             public const string NameRequired = "نام دسته بندی الزامی است.";
         }
 
-        public const string NotFound = "دسته بندی ای در سیستم یافت نشد.";
+        public const string NotFound = "دسته بندی در سیستم یافت نشد.";
         public const string Created = "دسته بندی مورد نظر با موفقیت ایجاد شد.";
         public const string Deleted = "دسته بندی مورد نظر با موفقیت حذف شد.";
         public const string CanNotDelete = "امکان حذف دسته بندی مورد نظر وجود ندارد.";
@@ -49,9 +48,21 @@ public static class Messages
             public const string NameRequired = "نام برچسب الزامی است.";
         }
 
-        public const string NotFound = "برچسبی در سیستم یافت نشد.";
+        public const string NotFound = "برچسب در سیستم یافت نشد.";
         public const string Created = "برچسب مورد نظر با موفقیت ایجاد شد.";
         public const string Deleted = "برچسب مورد نظر با موفقیت حذف شد.";
         public const string CanNotDelete = "امکان حذف برچسب مورد نظر وجود ندارد.";
+    }
+    public static class Article
+    {
+        public static class Validation
+        {
+            public const string TitleRequired = "عنوان مقاله/خبر الزامی است.";
+        }
+
+        public const string NotFound = "مقاله در سیستم یافت نشد.";
+        public const string Created = "مقاله مورد نظر با موفقیت ایجاد شد.";
+        public const string Deleted = "مقاله مورد نظر با موفقیت حذف شد.";
+        public const string Published = "مقاله مورد نظر با موفقیت پابلیش شد.";
     }
 }

@@ -8,6 +8,15 @@ namespace Infrastructure.Repositories;
 
 public class ArticleRepository(AppDbContext context) : Repository<Article>(context), IArticleRepository
 {
+    public async Task<Article?> GetByIdWithDetail(Guid id, CancellationToken cancellationToken)
+    {
+        return await context.Articles
+            .Where(a => a.Id == id)
+            .Include(a => a.Tags)
+            .Include(a => a.Comments)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
     public async Task<bool> ExistsAsync(string slug, CancellationToken cancellationToken)
     {
         return await context.Articles

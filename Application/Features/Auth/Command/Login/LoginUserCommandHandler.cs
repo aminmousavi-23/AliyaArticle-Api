@@ -25,7 +25,7 @@ public class LoginUserCommandHandler(
         if (user == null || hashedRequestPassword != user.HashedPassword)
         {
             return ResponseFactory
-                .Unauthorized<LoginUserCommandResponse>(Messages.User.InvalidPhoneNumberOrPassword);
+                .Unauthorized<LoginUserCommandResponse>(Messages.User.InvalidUsernameOrPassword);
         }
         
         var tokens = jwtTokenService.GenerateToken(user);

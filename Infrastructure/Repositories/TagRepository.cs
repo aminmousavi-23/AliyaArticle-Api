@@ -8,6 +8,13 @@ namespace Infrastructure.Repositories;
 
 public class TagRepository(AppDbContext context) : Repository<Tag>(context), ITagRepository
 {
+    public async Task<List<Tag>> GetByIdsAsync(List<Guid> ids, CancellationToken cancellationToken)
+    {
+        return await context.Tags
+            .Where(a => ids.Contains(a.Id))
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<bool> ExistsAsync(string slug, CancellationToken cancellationToken)
     {
         return await context.Tags
