@@ -2,6 +2,7 @@
 using Application.Features.Tag.Command.Delete;
 using Application.Features.Tag.Queries.GetPaginated;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -18,6 +19,7 @@ public class TagController(IMediator mediator) : ControllerBase
         return StatusCode(result.StatusCode, result);
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateTagCommand request, CancellationToken cancellationToken)
     {
@@ -25,6 +27,7 @@ public class TagController(IMediator mediator) : ControllerBase
         return StatusCode(result.StatusCode, result);
     }
     
+    [Authorize(Roles = "Admin")]
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken)
     {

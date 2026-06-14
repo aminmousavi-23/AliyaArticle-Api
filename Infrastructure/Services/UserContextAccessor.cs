@@ -30,9 +30,6 @@ public class UserContextAccessor(
 
         var fullName = user.FindFirst(CustomClaimTypes.FullName)?.Value
                        ?? throw new AuthenticationFailureException(Messages.Auth.InvalidToken);
-        
-        var isAdmin = bool.Parse(user.FindFirst(CustomClaimTypes.IsAdmin)?.Value
-                                 ?? throw new AuthenticationFailureException(Messages.Auth.InvalidToken));
 
         var isActive = bool.Parse(user.FindFirst(CustomClaimTypes.IsActive)?.Value
                                   ?? throw new AuthenticationFailureException(Messages.Auth.InvalidToken));
@@ -41,7 +38,6 @@ public class UserContextAccessor(
         {
             Username = username,
             FullName = fullName,
-            IsAdmin = isAdmin,
             IsActive = isActive
         };
     }

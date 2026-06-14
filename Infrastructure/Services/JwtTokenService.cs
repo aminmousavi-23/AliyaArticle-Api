@@ -28,11 +28,15 @@ public class JwtTokenService(IOptionsMonitor<JwtConfigOptions> jwtConfigOptions)
         var claims = new List<Claim>
         {
             new Claim(CustomClaimTypes.UserId, user.Id.ToString()),
+            new Claim(CustomClaimTypes.Username, user.Username),
             new Claim(CustomClaimTypes.FullName, user.FullName),
             new Claim(CustomClaimTypes.PhoneNumber, user.PhoneNumber),
-            new(CustomClaimTypes.IsAdmin, user.IsAdmin.ToString().ToLowerInvariant()),
             new(CustomClaimTypes.IsActive, user.IsActive.ToString().ToLowerInvariant())
         };
+        if (user.IsAdmin)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+        }
         
         var expiresAt = DateTime.UtcNow.AddMinutes(_jwtConfigOptions.Expires);
         
