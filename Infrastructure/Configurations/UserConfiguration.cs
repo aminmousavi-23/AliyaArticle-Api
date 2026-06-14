@@ -34,5 +34,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         
         builder.HasIndex(x => x.PhoneNumber)
             .IsUnique();
+        
+        builder.HasQueryFilter(x => x.IsDeleted == false);
     }
 }

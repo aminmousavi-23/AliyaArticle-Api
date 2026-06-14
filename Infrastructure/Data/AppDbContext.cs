@@ -73,21 +73,23 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             if (recordId.HasValue == false)
                 continue;
 
+            var newValues = JsonConvert.SerializeObject(
+                entry.Properties.ToDictionary(
+                    p => p.Metadata.Name,
+                    p => p.CurrentValue));
+
             auditLogs.Add(new AuditLog
             {
                 TableName = entry.Metadata.ClrType.Name,
                 EntityState = originalState,
                 RecordId = recordId.Value,
-                NewValues = JsonConvert.SerializeObject(
-                    entry.Properties.ToDictionary(
-                        p => p.Metadata.Name,
-                        p => p.CurrentValue)),
+                NewValues = newValues,
                 CreatedAt = now,
                 CreatedBy = username
             });
         }
 
-        if (auditLogs.Count > 0)
+        if (auditLogs.Any())
             AuditLogs.AddRange(auditLogs);
 
         return await base.SaveChangesAsync(cancellationToken);

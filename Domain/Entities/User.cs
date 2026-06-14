@@ -12,4 +12,6 @@ public class User : AuditableEntity
     public string HashedPassword { get; set; } = default!;
     
     public bool IsAdmin { get; set; }
+    
+    public ICollection<Article> Articles { get; set; } = new List<Article>();
 }
