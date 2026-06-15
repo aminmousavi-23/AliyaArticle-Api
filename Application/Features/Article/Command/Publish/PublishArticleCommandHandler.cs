@@ -8,7 +8,6 @@ using MediatR;
 namespace Application.Features.Article.Command.Publish;
 
 public class PublishArticleCommandHandler(
-    IMapper mapper,
     IRequestValidator requestValidator,
     IArticleRepository articleRepository,
     IUnitOfWork unitOfWork)
