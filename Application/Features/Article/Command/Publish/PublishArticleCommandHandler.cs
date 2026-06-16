@@ -2,7 +2,6 @@
 using Application.Common.Resources;
 using Application.Common.Validation;
 using Application.Models.Responses;
-using AutoMapper;
 using MediatR;
 
 namespace Application.Features.Article.Command.Publish;

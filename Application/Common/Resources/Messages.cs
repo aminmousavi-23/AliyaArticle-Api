@@ -65,4 +65,15 @@ public static class Messages
         public const string Deleted = "مقاله مورد نظر با موفقیت حذف شد.";
         public const string Published = "مقاله مورد نظر با موفقیت پابلیش شد.";
     }
+    public static class Comment
+    {
+        public static class Validation
+        {
+            
+        }
+
+        public const string NotFound = "کامنتی در سیستم یافت نشد.";
+        public const string Created = "کامنت مورد نظر با موفقیت ثبت شد.";
+        public const string Deleted = "کامنت مورد نظر با موفقیت حذف شد.";
+    }
 }

@@ -1,6 +1,6 @@
-﻿using Application.Features.Tag.Command.Create;
-using Application.Features.Tag.Command.Delete;
-using Application.Features.Tag.Queries.GetPaginated;
+﻿using Application.Features.Comment.Command.Create;
+using Application.Features.Comment.Command.Delete;
+using Application.Features.Comment.Queries.GetPaginated;
 using Infrastructure.Common.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -8,21 +8,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 
-[Route("api/tag")]
+[Route("api/comment")]
 [ApiController]
-public class TagController(IMediator mediator) : ControllerBase
+public class CommentController(IMediator mediator) : ControllerBase
 {
     [HttpPost("search")]
-    public async Task<IActionResult> GetPaginated([FromBody] GetTagPaginatedQuery request,
+    public async Task<IActionResult> GetPaginated([FromBody] GetCommentPaginatedQuery request,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(request, cancellationToken);
         return StatusCode(result.StatusCode, result);
     }
-
-    [Authorize(Roles = RoleTypes.Admin)]
+    
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] CreateTagCommand request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Post([FromBody] CreateCommentCommand request, CancellationToken cancellationToken)
     {
         var result = await mediator.Send(request, cancellationToken);
         return StatusCode(result.StatusCode, result);
@@ -32,7 +31,7 @@ public class TagController(IMediator mediator) : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken)
     {
-        var request = new DeleteTagCommand()
+        var request = new DeleteCommentCommand()
         {
             Id = id
         };

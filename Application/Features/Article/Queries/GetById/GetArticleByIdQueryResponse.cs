@@ -1,4 +1,5 @@
-﻿using Application.Features.Tag.Queries.GetPaginated;
+﻿using Application.Features.Comment.Queries.GetPaginated;
+using Application.Features.Tag.Queries.GetPaginated;
 using Application.Models.ViewModels;
 
 namespace Application.Features.Article.Queries.GetById;
@@ -14,5 +15,4 @@ public class GetArticleByIdQueryResponse : AuditableViewModel
     public Guid CategoryId { get; set; }
 
     public List<GetTagPaginatedQueryResponse> Tags { get; set; } = [];
-    //public List<GetCommentPaginatedQueryResponse> Comments { get; set; } = [];TODO
 }

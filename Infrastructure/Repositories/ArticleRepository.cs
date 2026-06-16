@@ -13,7 +13,6 @@ public class ArticleRepository(AppDbContext context) : Repository<Article>(conte
         return await context.Articles
             .Where(a => a.Id == id)
             .Include(a => a.Tags)
-            .Include(a => a.Comments)
             .FirstOrDefaultAsync(cancellationToken);
     }
 

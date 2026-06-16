@@ -1,5 +1,6 @@
 ﻿using Application.Features.User.Queries.GetById;
 using Application.Features.User.Queries.GetPaginated;
+using Infrastructure.Common.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class UserController(IMediator mediator) : ControllerBase
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = RoleTypes.Admin)]
     [HttpPost("search")]
     public async Task<IActionResult> GetPaginated([FromBody] GetUserPaginatedQuery request,
         CancellationToken cancellationToken)
