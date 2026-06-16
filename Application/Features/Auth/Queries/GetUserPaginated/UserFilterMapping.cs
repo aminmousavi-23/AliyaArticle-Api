@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Application.Common.Querying.Mapping;
 
-namespace Application.Features.User.Queries.GetPaginated;
+namespace Application.Features.Auth.Queries.GetUserPaginated;
 
 public static class UserFilterMapping
 {

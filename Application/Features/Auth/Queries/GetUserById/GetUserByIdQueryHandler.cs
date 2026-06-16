@@ -1,12 +1,10 @@
 ﻿using Application.Abstractions.Persistence;
-using Application.Common.Querying.Mapping;
 using Application.Common.Resources;
-using Application.Features.User.Queries.GetPaginated;
 using Application.Models.Responses;
 using AutoMapper;
 using MediatR;
 
-namespace Application.Features.User.Queries.GetById;
+namespace Application.Features.Auth.Queries.GetUserById;
 
 public class GetUserByIdQueryHandler(
     IMapper mapper,

@@ -1,8 +1,8 @@
 ﻿using Application.Models.ViewModels;
 
-namespace Application.Features.User.Queries.GetPaginated;
+namespace Application.Features.Auth.Queries.GetUserById;
 
-public class GetUserPaginatedQueryResponse : AuditableViewModel
+public class GetUserByIdQueryResponse : AuditableViewModel
 {
     public string Username { get; set; } = default!;
     public string FullName { get; set; } = default!;

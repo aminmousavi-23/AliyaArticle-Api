@@ -1,5 +1,4 @@
-﻿using Application.Features.User.Queries.GetById;
-using Application.Models.Responses;
+﻿using Application.Models.Responses;
 using MediatR;
 
 namespace Application.Features.Article.Queries.GetById;

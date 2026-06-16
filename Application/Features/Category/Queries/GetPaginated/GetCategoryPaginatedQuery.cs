@@ -1,5 +1,4 @@
 ﻿using Application.Common.Querying.Filtering;
-using Application.Features.User.Queries.GetPaginated;
 using Application.Models.Responses;
 using MediatR;
 
