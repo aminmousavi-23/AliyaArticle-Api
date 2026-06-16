@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Common.Constants.ValidationConstants;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,15 +12,15 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.AuthorName)
-            .HasMaxLength(128)
+            .HasMaxLength(CommentValidationConstants.AuthorNameMaxLength)
             .IsRequired();
 
         builder.Property(x => x.AuthorEmail)
-            .HasMaxLength(256)
+            .HasMaxLength(CommentValidationConstants.AuthorEmailMaxLength)
             .IsRequired();
 
         builder.Property(x => x.Content)
-            .HasMaxLength(2048)
+            .HasMaxLength(CommentValidationConstants.ContentMaxLength)
             .IsRequired();
 
         builder.HasOne(x => x.Article)

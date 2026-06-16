@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Common.Constants.ValidationConstants;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,23 +12,23 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(x => x.Id);
         
         builder.Property(x => x.Username)
-            .HasMaxLength(64)
+            .HasMaxLength(UserValidationConstants.UsernameMaxLength)
             .IsRequired();
         
         builder.Property(x => x.FullName)
-            .HasMaxLength(128)
+            .HasMaxLength(UserValidationConstants.FullNameMaxLength)
             .IsRequired();
         
         builder.Property(x => x.PhoneNumber)
-            .HasMaxLength(15)
+            .HasMaxLength(UserValidationConstants.PhoneNumberMaxLength)
             .IsRequired();
         
         builder.Property(x => x.Email)
-            .HasMaxLength(256)
+            .HasMaxLength(UserValidationConstants.EmailMaxLength)
             .IsRequired(false);
         
         builder.Property(x => x.HashedPassword)
-            .HasMaxLength(256)
+            .HasMaxLength(UserValidationConstants.PasswordMaxLength)
             .IsRequired();
         
         builder.Property(x => x.IsAdmin);

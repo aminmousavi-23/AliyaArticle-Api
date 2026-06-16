@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Domain.Common.Constants.ValidationConstants;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,11 +12,11 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Name)
-            .HasMaxLength(128)
+            .HasMaxLength(CategoryValidationConstants.NameMaxLength)
             .IsRequired();
 
         builder.Property(x => x.Slug)
-            .HasMaxLength(128)
+            .HasMaxLength(CategoryValidationConstants.SlugMaxLength)
             .IsRequired();
 
         builder.HasIndex(x => x.Slug)

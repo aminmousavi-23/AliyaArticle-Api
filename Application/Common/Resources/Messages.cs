@@ -11,12 +11,23 @@ public static class Messages
         public static class Validation
         {
             public const string UsernameRequired = "نام کاربری الزامی است.";
+            public const string UsernameMaxLength = "نام کاربری نمی‌تواند بیشتر از 64 کاراکتر باشد.";
+
             public const string FullNameRequired = "نام و نام خانوادگی الزامی است.";
-            public const string PhoneNumberRequired = "شماره تلفن الزامی است.";
-            public const string InvalidPhoneNumber = "شماره تلفن معتبر نیست.";
-            public const string InvalidEmail = "فرمت ایمیل نامعتبر است.";
+            public const string FullNameMaxLength = "نام و نام خانوادگی نمی‌تواند بیشتر از 128 کاراکتر باشد.";
+
+            public const string PhoneNumberRequired = "شماره موبایل الزامی است.";
+            public const string PhoneNumberMaxLength = "شماره موبایل نمی‌تواند بیشتر از 15 کاراکتر باشد.";
+            public const string InvalidPhoneNumber = "شماره موبایل معتبر نیست.";
+
+            public const string EmailMaxLength = "ایمیل نمی‌تواند بیشتر از 256 کاراکتر باشد.";
+            public const string InvalidEmail = "ایمیل معتبر نیست.";
+
             public const string PasswordRequired = "رمز عبور الزامی است.";
-            public const string PasswordsAreNotEqual = "رمز عبور و تکرار آن مطابقت ندارند.";
+            public const string PasswordMinLength = "رمز عبور باید حداقل 8 کاراکتر باشد.";
+            public const string PasswordMaxLength = "رمز عبور نمی‌تواند بیشتر از 128 کاراکتر باشد.";
+
+            public const string PasswordsAreNotEqual = "رمز عبور و تکرار آن یکسان نیستند.";
         }
 
         public const string NotFound = "شخصی در سیستم یافت نشد.";
@@ -33,7 +44,8 @@ public static class Messages
     {
         public static class Validation
         {
-            public const string NameRequired = "نام دسته بندی الزامی است.";
+            public const string NameRequired = "نام دسته‌بندی الزامی است.";
+            public const string NameMaxLength = "نام دسته‌بندی نمی‌تواند بیشتر از 128 کاراکتر باشد.";
         }
 
         public const string NotFound = "دسته بندی در سیستم یافت نشد.";
@@ -46,6 +58,7 @@ public static class Messages
         public static class Validation
         {
             public const string NameRequired = "نام برچسب الزامی است.";
+            public const string NameMaxLength = "نام برچسب نمی‌تواند بیشتر از 64 کاراکتر باشد.";
         }
 
         public const string NotFound = "برچسب در سیستم یافت نشد.";
@@ -57,7 +70,15 @@ public static class Messages
     {
         public static class Validation
         {
-            public const string TitleRequired = "عنوان مقاله/خبر الزامی است.";
+            public const string TitleRequired = "عنوان مقاله الزامی است.";
+            public const string TitleMaxLength = "عنوان مقاله نمی‌تواند بیشتر از 256 کاراکتر باشد.";
+
+            public const string SummaryRequired = "خلاصه مقاله الزامی است.";
+            public const string SummaryMaxLength = "خلاصه مقاله نمی‌تواند بیشتر از 512 کاراکتر باشد.";
+
+            public const string ContentRequired = "محتوای مقاله الزامی است.";
+
+            public const string CategoryRequired = "دسته‌بندی مقاله الزامی است.";
         }
 
         public const string NotFound = "مقاله در سیستم یافت نشد.";
@@ -69,11 +90,22 @@ public static class Messages
     {
         public static class Validation
         {
-            
+            public const string AuthorNameRequired = "نام نویسنده الزامی است.";
+            public const string AuthorNameMaxLength = "نام نویسنده نمی‌تواند بیشتر از 128 کاراکتر باشد.";
+
+            public const string AuthorEmailRequired = "ایمیل نویسنده الزامی است.";
+            public const string AuthorEmailMaxLength = "ایمیل نمی‌تواند بیشتر از 256 کاراکتر باشد.";
+            public const string InvalidAuthorEmail = "ایمیل معتبر نیست.";
+
+            public const string ContentRequired = "متن دیدگاه الزامی است.";
+            public const string ContentMinLength = "متن دیدگاه باید حداقل 2 کاراکتر باشد.";
+            public const string ContentMaxLength = "متن دیدگاه نمی‌تواند بیشتر از 2048 کاراکتر باشد.";
+
+            public const string ArticleRequired = "مقاله انتخاب نشده است.";
         }
 
-        public const string NotFound = "کامنتی در سیستم یافت نشد.";
-        public const string Created = "کامنت مورد نظر با موفقیت ثبت شد.";
-        public const string Deleted = "کامنت مورد نظر با موفقیت حذف شد.";
+        public const string NotFound = "دیدگاهی در سیستم یافت نشد.";
+        public const string Created = "دیدگاه مورد نظر با موفقیت ثبت شد.";
+        public const string Deleted = "دیدگاه مورد نظر با موفقیت حذف شد.";
     }
 }
