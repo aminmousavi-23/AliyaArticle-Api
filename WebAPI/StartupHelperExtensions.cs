@@ -59,15 +59,11 @@ public static class StartupHelperExtensions
             .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
     }
 
-    public static async Task ResetDatabaseAsync(this WebApplication app)
+    public static async Task MigrateDatabaseAsync(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         
-        var context = scope.ServiceProvider.GetService<AppDbContext>();
-        if (context != null)
-        {
-            await context.Database.EnsureDeletedAsync();
-            await context.Database.MigrateAsync();
-        }
+        await context.Database.MigrateAsync();
     }
 }

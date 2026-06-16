@@ -16,6 +16,6 @@ var app = builder.Build();
 
 app.AddMiddlewares();
 
-//await app.ResetDatabaseAsync();
+await app.MigrateDatabaseAsync();
 
 app.Run();
