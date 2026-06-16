@@ -1,8 +1,8 @@
 using System.Text;
 using Application.Abstractions.Infrastructure;
 using Application.Abstractions.Persistence;
+using Application.Common.Options;
 using Infrastructure.Common.Constants;
-using Infrastructure.Common.Options;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
@@ -38,6 +38,7 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
         #endregion
         

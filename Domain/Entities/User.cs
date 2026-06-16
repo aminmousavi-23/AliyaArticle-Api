@@ -14,11 +14,5 @@ public class User : AuditableEntity
     public bool IsAdmin { get; set; }
     
     public ICollection<Article> Articles { get; set; } = new List<Article>();
-    
-    
-    public const int UsernameMaxLength = 64;
-    public const int FullNameMaxLength = 128;
-    public const int PhoneNumberMaxLength = 15;
-    public const int EmailMaxLength = 256;
-    public const int HashedPasswordMaxLength = 256;
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 }

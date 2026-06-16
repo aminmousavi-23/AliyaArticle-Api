@@ -27,7 +27,7 @@ public class RegisterUserCommandHandler(
         }
         
         var newUser = mapper.Map<Domain.Entities.User>(request);
-        newUser.HashedPassword = PasswordHelper.HashPassword(request.Password);
+        newUser.HashedPassword = CredentialHelper.Hash(request.Password);
 
         await userRepository.AddAsync(newUser, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);

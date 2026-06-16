@@ -1,4 +1,5 @@
 ﻿using Application.Features.Auth.Command.Login;
+using Application.Features.Auth.Command.RefreshToken;
 using Application.Features.Auth.Command.Register;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -25,19 +26,11 @@ public class AuthController(IMediator mediator) : ControllerBase
         return StatusCode(result.StatusCode, result);
     }
     
-    /*[HttpPost("refresh")] TODO: init later
+    [HttpPost("refresh-token")]
     public async Task<IActionResult> Post([FromBody] RefreshTokenCommand request,
         CancellationToken cancellationToken)
     {
         var result = await mediator.Send(request, cancellationToken);
         return StatusCode(result.StatusCode, result);
     }
-    
-    [HttpPost("logout")]
-    public async Task<IActionResult> Post([FromBody] LogoutUserCommand request,
-        CancellationToken cancellationToken)
-    {
-        var result = await mediator.Send(request, cancellationToken);
-        return StatusCode(result.StatusCode, result);
-    }*/
 }

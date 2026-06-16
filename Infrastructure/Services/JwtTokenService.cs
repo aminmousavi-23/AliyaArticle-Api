@@ -3,12 +3,13 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Application.Abstractions.Infrastructure;
+using Application.Common.Options;
 using Application.Common.Resources;
 using Application.Exceptions;
 using Application.Models.DTOs;
 using Domain.Entities;
 using Infrastructure.Common.Constants;
-using Infrastructure.Common.Options;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -21,7 +22,7 @@ public class JwtTokenService(IOptionsMonitor<JwtConfigOptions> jwtConfigOptions)
     public JwtTokenDto GenerateToken(User user)
     {
         if (user.IsActive == false)
-            throw new AppException(Messages.User.IsNotActive);
+            throw new AppException(Messages.User.IsNotActive, StatusCodes.Status401Unauthorized);
         
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfigOptions.Key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -38,7 +39,7 @@ public class JwtTokenService(IOptionsMonitor<JwtConfigOptions> jwtConfigOptions)
             claims.Add(new Claim(ClaimTypes.Role, "Admin"));
         }
         
-        var expiresAt = DateTime.UtcNow.AddMinutes(_jwtConfigOptions.Expires);
+        var expiresAt = DateTime.UtcNow.AddMinutes(_jwtConfigOptions.AccessTokenExpires);
         
         var tokenDescriptor = new SecurityTokenDescriptor
         {
@@ -54,7 +55,7 @@ public class JwtTokenService(IOptionsMonitor<JwtConfigOptions> jwtConfigOptions)
         var response = new JwtTokenDto()
         {
             AccessToken = tokenHandler.WriteToken(token),
-            RefreshToken = GenerateRefreshToken(), //TODO: init-later => redis
+            RefreshToken = GenerateRefreshToken(),
             ExpiresAt = expiresAt
         };
 

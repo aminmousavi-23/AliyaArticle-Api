@@ -3,9 +3,9 @@ using System.Text;
 
 namespace Application.Common.Helpers;
 
-public static class PasswordHelper
+public static class CredentialHelper
 {
-    public static string HashPassword(string password)
+    public static string Hash(string password)
     {
         var hashedBytes = SHA256.HashData(Encoding.UTF8.GetBytes(password));
         return Convert.ToBase64String(hashedBytes);
