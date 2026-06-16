@@ -12,7 +12,6 @@ public static class ArticleFilterMapping
         baseMap["title"] = x => x.Title;
         baseMap["slug"] = x => x.Slug;
         baseMap["summary"] = x => x.Summary;
-        baseMap["content"] = x => x.Content;
         baseMap["isPublished"] = x => x.IsPublished;
         baseMap["categoryId"] = x => x.CategoryId;
 

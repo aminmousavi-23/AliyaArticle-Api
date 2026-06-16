@@ -71,14 +71,19 @@ public static class Messages
         public static class Validation
         {
             public const string TitleRequired = "عنوان مقاله الزامی است.";
-            public const string TitleMaxLength = "عنوان مقاله نمی‌تواند بیشتر از 256 کاراکتر باشد.";
+            public const string TitleMaxLength = "طول عنوان مقاله بیش از حد مجاز است.";
 
             public const string SummaryRequired = "خلاصه مقاله الزامی است.";
-            public const string SummaryMaxLength = "خلاصه مقاله نمی‌تواند بیشتر از 512 کاراکتر باشد.";
+            public const string SummaryMaxLength = "طول خلاصه مقاله بیش از حد مجاز است.";
 
-            public const string ContentRequired = "محتوای مقاله الزامی است.";
+            public const string CategoryRequired = "انتخاب دسته‌بندی الزامی است.";
 
-            public const string CategoryRequired = "دسته‌بندی مقاله الزامی است.";
+            public const string BlocksRequired = "مقاله باید حداقل یک بخش داشته باشد.";
+
+            public const string InvalidBlockType = "نوع بلوک نامعتبر است.";
+            public const string BlockOrderInvalid = "ترتیب بلوک نامعتبر است.";
+            public const string BlockTextRequired = "متن این بخش الزامی است.";
+            public const string ImageAttachmentRequired = "تصویر باید دارای فایل باشد.";
         }
 
         public const string NotFound = "مقاله در سیستم یافت نشد.";

@@ -23,9 +23,6 @@ public class ArticleConfiguration : IEntityTypeConfiguration<Article>
             .HasMaxLength(ArticleValidationConstants.SummaryMaxLength)
             .IsRequired();
 
-        builder.Property(x => x.Content)
-            .IsRequired();
-
         builder.Property(x => x.IsPublished)
             .HasDefaultValue(false);
 

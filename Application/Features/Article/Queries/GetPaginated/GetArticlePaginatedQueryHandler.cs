@@ -1,5 +1,4 @@
 ﻿using Application.Abstractions.Persistence;
-using Application.Common.Querying.Mapping;
 using Application.Common.Resources;
 using Application.Models.Responses;
 using AutoMapper;

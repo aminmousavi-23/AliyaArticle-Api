@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
 using WebAPI.Middlewares;
 
@@ -15,6 +16,7 @@ public static class StartupHelperExtensions
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddHealthChecks();
+        services.AddSwaggerServices();
         services.AddCors(options =>
         {
             options.AddPolicy("AllowUI", builder =>
@@ -28,10 +30,56 @@ public static class StartupHelperExtensions
         return services;
     }
 
+    private static IServiceCollection AddSwaggerServices(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "AliyaNews.Api",
+                Version = "v1"
+            });
+
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header,
+                Description = "Enter: Bearer {token}"
+            });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    },
+                    Array.Empty<string>()
+                }
+            });
+        });
+
+        return services;
+    }
+
     public static WebApplication AddMiddlewares(this WebApplication app)
     {
         if (app.Environment.IsDevelopment())
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AliyaNews.Api v1");
+                c.RoutePrefix = "swagger";
+            });
+
             app.MapOpenApi();
             app.MapScalarApiReference(options =>
             {
@@ -63,7 +111,7 @@ public static class StartupHelperExtensions
     {
         using var scope = app.Services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        
+
         await context.Database.MigrateAsync();
     }
 }
