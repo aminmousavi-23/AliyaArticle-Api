@@ -47,8 +47,13 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Exception
     {
         context.Response.StatusCode = response.StatusCode;
         context.Response.ContentType = "application/json";
+        
+        var settings = new JsonSerializerSettings
+        {
+            ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+        };
 
-        var jsonResponse = JsonConvert.SerializeObject(response);
+        var jsonResponse = JsonConvert.SerializeObject(response, settings);
         await context.Response.WriteAsync(jsonResponse);
     }
 }

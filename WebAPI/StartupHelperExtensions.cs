@@ -1,4 +1,5 @@
-﻿using Infrastructure.Data;
+﻿using System.Text.Json;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
@@ -13,7 +14,12 @@ public static class StartupHelperExtensions
         var uiDomains = configuration.GetSection("UIDomains").Get<string[]>();
 
         services.AddOpenApi();
-        services.AddControllers();
+        services.AddControllers()
+            .AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver =
+                    new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+            });
         services.AddEndpointsApiExplorer();
         services.AddHealthChecks();
         services.AddSwaggerServices();

@@ -5,6 +5,7 @@ public static class Messages
     public static class Common
     {
         public const string InternalServerError = "خطایی در سرور رخ داده است. لطفا با پشتیبانی ارتباط برقرار کنید.";
+        public const string BadRequest = "خطا در مقادیر وارد شده.";
     }
     public static class User
     {
