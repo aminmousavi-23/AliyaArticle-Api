@@ -83,7 +83,9 @@ public static class Messages
             public const string InvalidBlockType = "نوع بلوک نامعتبر است.";
             public const string BlockOrderInvalid = "ترتیب بلوک نامعتبر است.";
             public const string BlockTextRequired = "متن این بخش الزامی است.";
-            public const string ImageAttachmentRequired = "تصویر باید دارای فایل باشد.";
+            public const string Base64FileRequired = "آپلود فایل الزامی است.";
+            public const string FileSizeExceeded = "حجم فایل بارگذاری شده نباید بیش از 3 مگابایت باشد.";
+            public const string FileTypeNotAllowed = "نوع فایل باید یکی از تایپ های JPG ،PNG یا PDF باشد.";
         }
 
         public const string NotFound = "مقاله در سیستم یافت نشد.";
@@ -112,5 +114,9 @@ public static class Messages
         public const string NotFound = "دیدگاهی در سیستم یافت نشد.";
         public const string Created = "دیدگاه مورد نظر با موفقیت ثبت شد.";
         public const string Deleted = "دیدگاه مورد نظر با موفقیت حذف شد.";
+    }
+    public static class Attachment
+    {
+        public const string NotFound = "فایل مورد نظر یافت نشد.";
     }
 }

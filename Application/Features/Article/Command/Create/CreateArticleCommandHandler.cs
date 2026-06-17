@@ -57,7 +57,7 @@ public class CreateArticleCommandHandler(
         return ResponseFactory.Created(response, Messages.Article.Created);
     }
 
-    #region Private methods
+    #region Private Methods
 
     private async Task<List<ArticleBlock>> BuildBlocksAsync(List<CreateArticleBlockDto> dtos, 
         CancellationToken cancellationToken)
@@ -89,10 +89,11 @@ public class CreateArticleCommandHandler(
 
         var bytes = Convert.FromBase64String(base64);
 
-        var attachment = new Attachment
+        var attachment = new Domain.Entities.Attachment
         {
             Data = bytes,
-            Size = bytes.Length
+            ContentType = AttachmentHelper.DetectContentType(bytes),
+            Size = AttachmentHelper.GetSize(bytes)
         };
 
         await attachmentRepository.AddAsync(attachment, cancellationToken);

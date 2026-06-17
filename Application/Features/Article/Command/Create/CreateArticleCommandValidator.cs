@@ -1,4 +1,5 @@
-﻿using Application.Common.Resources;
+﻿using Application.Common.Helpers;
+using Application.Common.Resources;
 using Domain.Common.Constants.ValidationConstants;
 using Domain.Enums;
 using FluentValidation;
@@ -36,6 +37,15 @@ public class CreateArticleCommandValidator : AbstractValidator<CreateArticleComm
 
 public class CreateArticleBlockValidator : AbstractValidator<CreateArticleBlockDto>
 {
+    private const int MaxFileSize = 3 * 1024 * 1024;
+
+    private static readonly string[] AllowedTypes =
+    [
+        "image/png",
+        "image/jpeg",
+        "application/pdf"
+    ];
+
     public CreateArticleBlockValidator()
     {
         RuleFor(x => x.Type)
@@ -53,21 +63,75 @@ public class CreateArticleBlockValidator : AbstractValidator<CreateArticleBlockD
                 .WithMessage(Messages.Article.Validation.BlockTextRequired);
         });
 
-        When(IsImageBlock, () =>
+        When(IsFileBlock, () =>
         {
             RuleFor(x => x.Base64File)
-                .NotNull()
-                .WithMessage(Messages.Article.Validation.ImageAttachmentRequired);
-
-            RuleFor(x => x.Base64File!.Length)
-                .GreaterThan(0)
-                .WithMessage(Messages.Article.Validation.ImageAttachmentRequired);
+                .NotEmpty()
+                .WithMessage(Messages.Article.Validation.Base64FileRequired)
+                .Must(BeValidBase64)
+                .WithMessage(Messages.Article.Validation.FileTypeNotAllowed)
+                .Must(BeValidFileSize)
+                .WithMessage(Messages.Article.Validation.FileSizeExceeded)
+                .Must(BeValidFileType)
+                .WithMessage(Messages.Article.Validation.FileTypeNotAllowed);
         });
     }
+
+    #region Private Methods
 
     private static bool IsTextBlock(CreateArticleBlockDto x)
         => x.Type is BlockType.Paragraph or BlockType.Heading or BlockType.Quote or BlockType.Code;
 
-    private static bool IsImageBlock(CreateArticleBlockDto x)
+    private static bool IsFileBlock(CreateArticleBlockDto x)
         => x.Type == BlockType.Attachment;
+
+    private static bool BeValidBase64(string? base64)
+    {
+        if (string.IsNullOrWhiteSpace(base64))
+            return false;
+
+        Span<byte> buffer = new byte[base64.Length];
+
+        return Convert.TryFromBase64String(
+            base64,
+            buffer,
+            out _
+        );
+    }
+
+    private static bool BeValidFileSize(string? base64)
+    {
+        if (!TryGetBytes(base64, out var bytes))
+            return false;
+
+        return bytes.Length <= MaxFileSize;
+    }
+
+    private static bool BeValidFileType(string? base64)
+    {
+        if (!TryGetBytes(base64, out var bytes))
+            return false;
+
+        return AttachmentHelper.IsAllowedType(bytes, AllowedTypes);
+    }
+
+    private static bool TryGetBytes(string? base64, out byte[] bytes)
+    {
+        bytes = [];
+
+        if (string.IsNullOrWhiteSpace(base64))
+            return false;
+
+        try
+        {
+            bytes = Convert.FromBase64String(base64);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    #endregion
 }
