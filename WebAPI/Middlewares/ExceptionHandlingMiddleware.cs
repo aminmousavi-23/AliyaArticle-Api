@@ -21,7 +21,7 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogger<Exception
                 Value = err.Value
             }).ToList();
 
-            var response = ResponseFactory.ValidationError(errors!, ex.Message);
+            var response = ResponseFactory.BadRequest(errors!, ex.Message);
 
             await WriteJsonResponseAsync(context, response);
         }

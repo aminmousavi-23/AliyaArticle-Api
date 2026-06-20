@@ -4,6 +4,8 @@ namespace Application.Models.Responses;
 
 public static class ResponseFactory
 {
+    #region Ok
+
     public static BaseResponse Ok(string? message = null) =>
         new()
         {
@@ -35,6 +37,10 @@ public static class ResponseFactory
             TotalCount = totalCount
         };
 
+    #endregion
+
+    #region Created
+
     public static BaseResponse Created(string? message = null) =>
         new()
         {
@@ -50,6 +56,10 @@ public static class ResponseFactory
             Data = data
         };
 
+    #endregion
+
+    #region BadRequest
+
     public static BaseResponse BadRequest(string message) =>
         new()
         {
@@ -64,13 +74,17 @@ public static class ResponseFactory
             Message = message
         };
 
-    public static BaseResponse ValidationError(List<ValidationErrorResponse> errors, string? message = null) =>
+    public static BaseResponse BadRequest(List<ValidationErrorResponse> errors, string? message = null) =>
         new()
         {
             StatusCode = StatusCodes.Status400BadRequest,
             Message = message,
             ValidationErrors = errors
         };
+
+    #endregion
+
+    #region NotFound
 
     public static BaseResponse NotFound(string message) =>
         new()
@@ -93,6 +107,10 @@ public static class ResponseFactory
             Message = message
         };
 
+    #endregion
+
+    #region Unauthorized
+
     public static BaseResponse Unauthorized(string? message = null) =>
         new()
         {
@@ -106,13 +124,17 @@ public static class ResponseFactory
             StatusCode = StatusCodes.Status401Unauthorized,
             Message = message
         };
-
+    
     public static BaseResponse Forbidden(string? message = null) =>
         new()
         {
             StatusCode = StatusCodes.Status403Forbidden,
             Message = message
         };
+
+    #endregion
+
+    #region Conflict
 
     public static BaseResponse Conflict(string message) =>
         new()
@@ -128,6 +150,10 @@ public static class ResponseFactory
             Message = message
         };
 
+    #endregion
+
+    #region Exception
+
     public static BaseResponse Exception(string? message = null,
         int statusCode = StatusCodes.Status500InternalServerError) =>
         new()
@@ -135,4 +161,6 @@ public static class ResponseFactory
             StatusCode = statusCode,
             Message = message
         };
+
+    #endregion
 }
