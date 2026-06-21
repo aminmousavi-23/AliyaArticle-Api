@@ -1,6 +1,6 @@
 ﻿using Application.Models.ViewModels;
 
-namespace Application.Features.Category.Command.Delete;
+namespace Application.Features.Tag.Command.Delete;
 
 public class DeleteTagCommandResponse : BaseViewModel
 {

@@ -1,7 +1,5 @@
-﻿using Application.Features.Category.Command.Create;
-using Application.Features.Tag.Command.Create;
+﻿using Application.Features.Tag.Command.Create;
 using Application.Features.Tag.Queries.GetPaginated;
-using AutoMapper;
 
 namespace Application.Features.Tag;
 

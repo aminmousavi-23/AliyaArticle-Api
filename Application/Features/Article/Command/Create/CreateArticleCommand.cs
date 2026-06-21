@@ -1,6 +1,4 @@
-﻿using Application.Models.Responses;
-using Domain.Enums;
-using MediatR;
+﻿using Domain.Enums;
 
 namespace Application.Features.Article.Command.Create;
 

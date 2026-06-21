@@ -1,6 +1,4 @@
-﻿using Application.Common.Resources;
-using Domain.Common.Constants.ValidationConstants;
-using FluentValidation;
+﻿using Domain.Common.Constants.ValidationConstants;
 
 namespace Application.Features.Auth.Command.Login;
 

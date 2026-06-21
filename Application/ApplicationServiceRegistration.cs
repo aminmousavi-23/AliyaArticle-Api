@@ -1,6 +1,4 @@
 using System.Reflection;
-using Application.Common.Validation;
-using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

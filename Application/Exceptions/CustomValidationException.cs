@@ -1,5 +1,4 @@
-﻿using Application.Common.Resources;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Application.Exceptions;
 

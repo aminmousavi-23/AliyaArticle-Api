@@ -1,11 +1,5 @@
-﻿using Application.Abstractions.Persistence;
-using Application.Common.Resources;
-using Application.Exceptions;
-using Application.Models.Responses;
-using AutoMapper;
-using MediatR;
+﻿using Application.Exceptions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Features.Attachment.Queries.GetById;
 

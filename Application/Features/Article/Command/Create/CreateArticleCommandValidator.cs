@@ -1,8 +1,6 @@
 ﻿using Application.Common.Helpers;
-using Application.Common.Resources;
 using Domain.Common.Constants.ValidationConstants;
 using Domain.Enums;
-using FluentValidation;
 
 namespace Application.Features.Article.Command.Create;
 

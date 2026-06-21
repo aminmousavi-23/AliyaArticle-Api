@@ -1,6 +1,5 @@
 ﻿using Application.Features.Comment.Command.Create;
 using Application.Features.Comment.Queries.GetPaginated;
-using AutoMapper;
 
 namespace Application.Features.Comment;
 

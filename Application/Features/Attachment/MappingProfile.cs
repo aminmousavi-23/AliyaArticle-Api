@@ -1,5 +1,4 @@
 ﻿using Application.Features.Attachment.Queries.GetById;
-using AutoMapper;
 
 namespace Application.Features.Attachment;
 

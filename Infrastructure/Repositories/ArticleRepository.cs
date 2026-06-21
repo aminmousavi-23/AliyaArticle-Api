@@ -1,13 +1,9 @@
-﻿using System.Linq.Expressions;
-using Application.Abstractions.Persistence;
+﻿using Application.Abstractions.Persistence;
 using Application.Common.Querying.Filtering;
 using Application.Common.Querying.Ordering;
 using Application.Common.Querying.Paging;
 using Application.Features.Article.Queries.GetPaginated;
-using Application.Features.Category.Queries.GetPaginated;
-using Domain.Entities;
 using Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories;
 

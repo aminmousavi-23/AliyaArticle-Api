@@ -1,6 +1,4 @@
 ﻿using Application.Features.Attachment.Queries.GetById;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 

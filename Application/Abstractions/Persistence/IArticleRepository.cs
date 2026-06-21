@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using Application.Features.Article.Queries.GetPaginated;
-using Domain.Entities;
 
 namespace Application.Abstractions.Persistence;
 

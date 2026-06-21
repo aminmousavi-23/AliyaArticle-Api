@@ -4,9 +4,6 @@ using Application.Features.Auth.Command.Register;
 using Application.Features.Auth.Queries.GetUserById;
 using Application.Features.Auth.Queries.GetUserPaginated;
 using Infrastructure.Common.Constants;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 

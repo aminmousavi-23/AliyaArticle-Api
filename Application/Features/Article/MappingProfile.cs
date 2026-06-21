@@ -1,7 +1,6 @@
 ﻿using Application.Features.Article.Command.Create;
 using Application.Features.Article.Queries.GetById;
 using Application.Features.Article.Queries.GetPaginated;
-using AutoMapper;
 
 namespace Application.Features.Article;
 

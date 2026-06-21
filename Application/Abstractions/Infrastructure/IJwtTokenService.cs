@@ -1,5 +1,4 @@
 ﻿using Application.Models.DTOs;
-using Domain.Entities;
 
 namespace Application.Abstractions.Infrastructure;
 

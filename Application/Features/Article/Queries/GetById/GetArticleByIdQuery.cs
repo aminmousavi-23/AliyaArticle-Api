@@ -1,7 +1,4 @@
-﻿using Application.Models.Responses;
-using MediatR;
-
-namespace Application.Features.Article.Queries.GetById;
+﻿namespace Application.Features.Article.Queries.GetById;
 
 public class GetArticleByIdQuery : IRequest<BaseResponse<GetArticleByIdQueryResponse>>
 {

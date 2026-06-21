@@ -7,7 +7,6 @@ using Application.Common.Options;
 using Application.Common.Resources;
 using Application.Exceptions;
 using Application.Models.DTOs;
-using Domain.Entities;
 using Infrastructure.Common.Constants;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;

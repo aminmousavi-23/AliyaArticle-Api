@@ -1,6 +1,4 @@
-﻿using Application.Models.Responses;
-using MediatR;
-
+﻿
 namespace Application.Features.Attachment.Queries.GetById;
 
 public class GetAttachmentByIdQuery : IRequest<BaseResponse<GetAttachmentByIdQueryResponse>>

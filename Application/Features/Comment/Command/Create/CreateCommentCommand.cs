@@ -1,6 +1,4 @@
-﻿using Application.Models.Responses;
-using MediatR;
-
+﻿
 namespace Application.Features.Comment.Command.Create;
 
 public class CreateCommentCommand : IRequest<BaseResponse<CreateCommentCommandResponse>>

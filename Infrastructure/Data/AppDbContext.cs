@@ -1,9 +1,5 @@
 ﻿using Application.Abstractions.Infrastructure;
 using Domain.Common;
-using Domain.Entities;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Newtonsoft.Json;
 
 namespace Infrastructure.Data;
 

@@ -1,7 +1,6 @@
 ﻿using Application.Features.Auth.Command.Register;
 using Application.Features.Auth.Queries.GetUserById;
 using Application.Features.Auth.Queries.GetUserPaginated;
-using AutoMapper;
 
 namespace Application.Features.Auth;
 

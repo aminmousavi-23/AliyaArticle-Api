@@ -2,9 +2,6 @@
 using Application.Features.Tag.Command.Delete;
 using Application.Features.Tag.Queries.GetPaginated;
 using Infrastructure.Common.Constants;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
 

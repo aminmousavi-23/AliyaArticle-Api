@@ -1,10 +1,4 @@
-﻿using Application.Abstractions.Persistence;
-using Application.Common.Helpers;
-using Application.Common.Resources;
-using Application.Common.Validation;
-using Application.Models.Responses;
-using AutoMapper;
-using MediatR;
+﻿using Application.Common.Helpers;
 
 namespace Application.Features.Category.Command.Create;
 

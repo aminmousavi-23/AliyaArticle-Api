@@ -1,9 +1,4 @@
-﻿using Application.Abstractions.Persistence;
-using Application.Common.Resources;
-using Application.Models.Responses;
-using AutoMapper;
-using MediatR;
-
+﻿
 namespace Application.Features.Tag.Queries.GetPaginated;
 
 public class GetTagPaginatedQueryHandler(

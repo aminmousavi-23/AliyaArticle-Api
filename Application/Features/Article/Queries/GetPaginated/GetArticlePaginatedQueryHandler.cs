@@ -1,10 +1,4 @@
-﻿using Application.Abstractions.Persistence;
-using Application.Common.Resources;
-using Application.Models.Responses;
-using AutoMapper;
-using MediatR;
-
-namespace Application.Features.Article.Queries.GetPaginated;
+﻿namespace Application.Features.Article.Queries.GetPaginated;
 
 public class GetArticlePaginatedQueryHandler(
     IMapper mapper,

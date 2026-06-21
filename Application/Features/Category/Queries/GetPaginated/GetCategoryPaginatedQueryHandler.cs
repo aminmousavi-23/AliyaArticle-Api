@@ -1,10 +1,4 @@
-﻿using Application.Abstractions.Persistence;
-using Application.Common.Querying.Mapping;
-using Application.Common.Resources;
-using Application.Models.Responses;
-using AutoMapper;
-using MediatR;
-
+﻿
 namespace Application.Features.Category.Queries.GetPaginated;
 
 public class GetCategoryPaginatedQueryHandler(

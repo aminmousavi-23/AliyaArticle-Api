@@ -1,11 +1,6 @@
 ﻿using Application.Abstractions.Infrastructure;
-using Application.Abstractions.Persistence;
 using Application.Common.Helpers;
 using Application.Common.Options;
-using Application.Common.Resources;
-using Application.Common.Validation;
-using Application.Models.Responses;
-using MediatR;
 using Microsoft.Extensions.Options;
 
 namespace Application.Features.Auth.Command.Login;

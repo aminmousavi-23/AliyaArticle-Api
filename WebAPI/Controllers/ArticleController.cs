@@ -4,10 +4,6 @@ using Application.Features.Article.Command.Publish;
 using Application.Features.Article.Queries.GetById;
 using Application.Features.Article.Queries.GetPaginated;
 using Infrastructure.Common.Constants;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
 namespace WebAPI.Controllers;
 
 [Route("api/article")]

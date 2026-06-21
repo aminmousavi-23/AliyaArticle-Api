@@ -1,9 +1,4 @@
-﻿using Application.Abstractions.Persistence;
-using Application.Common.Resources;
-using Application.Common.Validation;
-using Application.Models.Responses;
-using MediatR;
-
+﻿
 namespace Application.Features.Category.Command.Delete;
 
 public class DeleteCategoryCommandHandler(

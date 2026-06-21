@@ -1,9 +1,4 @@
-﻿using Application.Abstractions.Persistence;
-using Application.Common.Resources;
-using Application.Common.Validation;
-using Application.Features.Category.Command.Delete;
-using Application.Models.Responses;
-using MediatR;
+﻿using Application.Features.Category.Command.Delete;
 
 namespace Application.Features.Tag.Command.Delete;
 
