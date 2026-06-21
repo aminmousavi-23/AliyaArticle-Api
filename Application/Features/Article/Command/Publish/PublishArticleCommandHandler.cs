@@ -24,8 +24,7 @@ public class PublishArticleCommandHandler(
         }
         
         article.IsPublished = true;
-
-        articleRepository.Update(article);
+        
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return ResponseFactory.Ok<PublishArticleCommandResponse>(Messages.Article.Published);

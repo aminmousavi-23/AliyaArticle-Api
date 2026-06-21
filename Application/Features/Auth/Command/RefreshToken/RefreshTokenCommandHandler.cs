@@ -22,7 +22,7 @@ public class RefreshTokenCommandHandler(
     public async Task<BaseResponse<RefreshTokenCommandResponse>> Handle(RefreshTokenCommand request,
         CancellationToken cancellationToken)
     {
-        var refreshTokenHash = CredentialHelper.Hash(request.RefreshToken);
+        var refreshTokenHash = CredentialHelper.HashSha256(request.RefreshToken);
 
         var storedToken = await refreshTokenRepository.GetByHashAsync(refreshTokenHash, cancellationToken);
         if (storedToken == null || storedToken.IsRevoked || storedToken.ExpiresAt < DateTime.UtcNow)
@@ -47,13 +47,12 @@ public class RefreshTokenCommandHandler(
         var newRefreshToken = new Domain.Entities.RefreshToken
         {
             UserId = user.Id,
-            TokenHash = CredentialHelper.Hash(tokens.RefreshToken),
+            TokenHash = CredentialHelper.HashSha256(tokens.RefreshToken),
             ExpiresAt = DateTime.UtcNow.AddDays(_jwtConfigOptions.RefreshTokenExpires)
         };
 
         await refreshTokenRepository.AddAsync(newRefreshToken, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        
 
         var response = new RefreshTokenCommandResponse
         {

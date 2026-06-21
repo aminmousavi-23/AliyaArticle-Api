@@ -26,7 +26,7 @@ public class LoginUserCommandHandler(
     {
         await requestValidator.ValidateAsync(request);
 
-        var hashedRequestPassword = CredentialHelper.Hash(request.Password);
+        var hashedRequestPassword = CredentialHelper.HashSha256(request.Password);
 
         var user = await userRepository.GetByUsernameAsync(request.Username, cancellationToken);
         if (user == null || hashedRequestPassword != user.HashedPassword)
@@ -44,7 +44,7 @@ public class LoginUserCommandHandler(
         var refreshTokenEntity = new Domain.Entities.RefreshToken
         {
             UserId = user.Id,
-            TokenHash = CredentialHelper.Hash(tokens.RefreshToken),
+            TokenHash = CredentialHelper.HashSha256(tokens.RefreshToken),
             ExpiresAt = DateTime.UtcNow.AddDays(_jwtConfigOptions.RefreshTokenExpires)
         };
 
