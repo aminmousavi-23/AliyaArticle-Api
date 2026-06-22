@@ -32,7 +32,17 @@ public class ArticleConfiguration : IEntityTypeConfiguration<Article>
 
         builder.HasMany(x => x.Tags)
             .WithMany(x => x.Articles)
-            .UsingEntity(j => j.ToTable("ArticleTags"));
+            .UsingEntity<Dictionary<string, object>>(
+                "ArticleTags",
+                j => j.HasOne<Tag>()
+                    .WithMany()
+                    .HasForeignKey("TagId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                j => j.HasOne<Article>()
+                    .WithMany()
+                    .HasForeignKey("ArticleId")
+                    .OnDelete(DeleteBehavior.Cascade)
+            );
         
         builder.HasQueryFilter(x => x.IsDeleted == false);
     }

@@ -19,12 +19,6 @@ public class DeleteTagCommandHandler(
             return ResponseFactory.NotFound<DeleteTagCommandResponse>(Messages.Tag.NotFound);
         }
 
-        var hasArticles = await tagRepository.HasArticlesAsync(request.Id, cancellationToken);
-        if (hasArticles)
-        {
-            return ResponseFactory.Conflict<DeleteTagCommandResponse>(Messages.Tag.CanNotDelete);
-        }
-
         tagRepository.Remove(tag);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
