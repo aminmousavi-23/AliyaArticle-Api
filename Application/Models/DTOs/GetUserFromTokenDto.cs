@@ -2,6 +2,7 @@
 
 public class GetUserFromTokenDto
 {
+    public Guid Id { get; set; }
     public string Username { get; set; } = default!;
     public string FullName { get; set; } = default!;
     

@@ -21,9 +21,13 @@ public class UserContextAccessor(
         if (user?.Identity?.IsAuthenticated != true)
             return new GetUserFromTokenDto()
             {
+                Id = Guid.Empty,
                 Username = SystemUsername,
                 FullName = SystemFullName
             };
+        
+        var userId = user.FindFirst(CustomClaimTypes.UserId)?.Value
+                       ?? throw new AuthenticationFailureException(Messages.Auth.InvalidToken);
 
         var username = user.FindFirst(CustomClaimTypes.Username)?.Value
                        ?? throw new AuthenticationFailureException(Messages.Auth.InvalidToken);
@@ -36,6 +40,7 @@ public class UserContextAccessor(
 
         return new GetUserFromTokenDto()
         {
+            Id = Guid.Parse(userId),
             Username = username,
             FullName = fullName,
             IsActive = isActive

@@ -23,9 +23,9 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public override async Task<int> SaveChangesAsync(
         CancellationToken cancellationToken = default)
     {
-        var username = this.GetService<IUserContextAccessor>()
+        var userId = this.GetService<IUserContextAccessor>()
             .GetUserByTokenAsync()
-            .Username;
+            .Id;
 
         var now = DateTime.UtcNow;
         var auditLogs = new List<AuditLog>();
@@ -43,12 +43,12 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             {
                 case EntityState.Added:
                     entry.Entity.CreatedAt = now;
-                    entry.Entity.CreatedBy = username;
+                    entry.Entity.CreatedBy = userId;
                     break;
 
                 case EntityState.Modified:
                     entry.Entity.LastModifiedAt = now;
-                    entry.Entity.LastModifiedBy = username;
+                    entry.Entity.LastModifiedBy = userId;
                     break;
 
                 case EntityState.Deleted:
@@ -56,7 +56,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                     entry.Entity.IsDeleted = true;
                     entry.Entity.IsActive = false;
                     entry.Entity.LastModifiedAt = now;
-                    entry.Entity.LastModifiedBy = username;
+                    entry.Entity.LastModifiedBy = userId;
                     break;
             }
 
@@ -87,7 +87,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 RecordId = recordId.Value,
                 NewValues = newValues,
                 CreatedAt = now,
-                CreatedBy = username
+                CreatedBy = userId
             });
         }
 
