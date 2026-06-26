@@ -42,7 +42,7 @@ public static class StartupHelperExtensions
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "AliyaNews.Api",
+                Title = "AliyaArticle.Api",
                 Version = "v1"
             });
 
@@ -82,14 +82,14 @@ public static class StartupHelperExtensions
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AliyaNews.Api v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AliyaArticle.Api v1");
                 c.RoutePrefix = "swagger";
             });
 
             app.MapOpenApi();
             app.MapScalarApiReference(options =>
             {
-                options.WithTitle("AliyaNews.Api");
+                options.WithTitle("AliyaArticle.Api");
                 options.WithTheme(ScalarTheme.BluePlanet);
             });
         }
