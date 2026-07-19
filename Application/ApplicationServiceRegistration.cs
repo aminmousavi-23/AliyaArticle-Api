@@ -1,17 +1,17 @@
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
 
 public static class ApplicationServiceRegistration
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(_ => { }, Assembly.GetExecutingAssembly());
-        services.AddMediatR(x => x.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        var assembly = Assembly.GetExecutingAssembly();
+        
+        services.AddAutoMapper(_ => { }, assembly);
+        services.AddMediatR(x => x.RegisterServicesFromAssembly(assembly));
+        services.AddValidatorsFromAssembly(assembly);
         services.AddScoped<IRequestValidator, RequestValidator>();
         
         ValidatorOptions.Global.PropertyNameResolver = (_, memberInfo, _) =>
